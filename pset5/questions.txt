@@ -1,0 +1,60 @@
+0.  an artificial long word said to mean a lung disease caused by inhaling very fine ash and sand dust.
+
+1.  it returns a measure of resource usage from a variable who which is returned in a structure which contains 
+    information dependent on what variable is used for who
+    
+2.  16
+
+3.  Because calculate accepts pointers as arguments therefore you need to present the memory address of the values
+    instead of the values themselves.
+    
+4.  Main initialy opens a file to the file pointer 'fp' depending on how many command arguments are given when 
+    calling the program (3 args calls arg[2] else arg[1]). It then intializes 3 integers: 'index', 'mispellings' 
+    and 'words' to zero. The for-loop initializes an int 'c' using the fgetc fuction. fgetc returns an unsigned char
+    cast as an int. fgetc(fp) calls the next character from the fp file stream. It then checks to see if fgetc(fp) 
+    does not equal EOF (end of file), basically it checks to see if it has reached the end of the file. If this is still
+    true it proceeds to execute the for loop.
+    
+    The first if statment checks to see if the int returned by fgetc is an alphabetic character or if it is an apostrophe
+    that is part way through a word (index > 0). If that is the case it adds that letter to the 'word' array and it sets the 
+    next spot in the array by incrementing index. It then checks if the length of the word currently being marked by index
+    is greater than the maximum allowed word length. If this is the case, it reads through the line until it no longer 
+    reads a character or if it reaches the end of the file. As this happens it sets 'index' to zero to prepare for a new word. 
+    
+    The else if statement checks for words with numbers and like if the word surpasses the maximum alloted length, it sets index
+    to 0 while reading in the rest of the word or reaching the end of the file.  The second else if statement is reached if the 
+    first two if statements are not true, which represents that it has come across something other than a alphabetical character, 
+    apostrophe or digit a.k.a a space. This represents the end of the current word being inputted so it adds the null character
+    to the end of the string in the array and resets 'index' to add the next word. In addition it increments the word counter. Next it 
+    checks the time it takes to call the word and check it's spelling, it does this by calling the RUSAGE_SELF argument which
+    returns usage statistics for the calling process before and after the 'check' function. It then stores the difference between
+    the calls in the time_check variable. Finally it prints out, if any, mispelled words which are found if the bool 'mispelled' 
+    was set to true as a result of the 'check' function. It then repeats this process until it has reached the end of the file. 
+     
+5.  fscanf causes a variety of problems that do not occur by using fgetc. fscanf does not allow the program to check each individual
+    character therefore checks for invalid characters would have to be done after the string is stored. This would use more resources 
+    as another loop would be needed and an intermediate variable would be used to store the string. The main issue would be that fscanf
+    matches as many formatted strings as those presented, therefore the user would have to specify and right down as many strings that 
+    would be present and create room for these strings beforehand. 
+    
+6.  Parameters for load and check are constant because through all the storing and loading there is no reason for the arguments inputted to 
+    be altered. By passing the parameters in as constant they will not be changed while being loaded or checked thus providing data integrity 
+    for the dictionary.
+     
+7.  I used a trie to implement the dictionary, I created each node with a boolean variable to signify it it is in fact a word and then an
+    array of 27 node pointers to represent the possible 27 character set.
+    
+8.  Initially it ran a total time of ~0.13 seconds with equal load and unload times and about 0.02 check time. 
+
+9.  I changed the implementation of my load and check functions. I changed the order in the load function so it would only run an isaplpha() check
+    once and an equality check twice instead of vice versa to reduce calls to another function. In addition I combined the check to see if the 
+    character was alpha or an apostrophe (valid in the array) therefore it could be assumed that the only remaining character is a space so 
+    checks are not needed. In the check file I swapped the implementation of if the character was alpha or an apostrophe, since alphabetical 
+    characters are more common than apostrophes. Although this is a minor change it reduces the checking process most of the time by 1 check
+    which will save some time. Overall the average time was reduced to ~0.10. 
+    
+10. I feel that the trie as a structure is hard to speed up in general unlike hash maps. Hash maps when using a specific hash,
+    with a known amount of data that needs to be stored, can reduce the number of collisions to almost 0 therefore it's load and 
+    unload could be made extremely quickly. Also since many OSs provide speed boosting for memory calls that are close together in memory,
+    which cannot be utilized in a trie since each malloc call will place it in a random place in memory. The reason I chose a trie is 
+    because I had never implemented one before and I think that it provides great flexibility especially for dictionaries.

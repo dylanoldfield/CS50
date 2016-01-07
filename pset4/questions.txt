@@ -1,0 +1,65 @@
+0.  BMP: Typically 24-bit: 16,777,216 but can support 32-bit: 4,294,967,296
+    GIF: 8-bit: 256 
+    JPEG:24-bit: 16,777,216
+    PNG: 24-bit: 16,777,216
+    
+1.  Formats that Support Animation:
+    - GIF
+    - PNG has (MNG,APNG) --> not widely supported
+    - JPEG has (MJPEG) -->  not widely supported
+     
+2.  Lossless Compression:
+    allows compression of file but to a lesser extent than lossy as it encodes the all the original information into the compressed file 
+    Lossy Compression:
+    allows for far greater and more efficient compression but does not encode all the information from the original file. 
+    Therefore once the the file is decompressed it will not be an exact representation of the original
+    
+3.  JPEG is lossy compressed
+
+4.  When a file is deleted on a FAT file system two things occur:
+        First the system modfies the first character in the file's directory entry to signal that
+        the file has been deleted and the entry directory can be recycled
+        
+        Secondly the system moves all of the file's FAT clusters to the hard drive's list of
+        free clusters
+        
+5.  To ensure with high probablity that the files I delete are non-recoverable I firstly could  
+    physically destroy the disk, by either melting, incinerating, pulverising... Secondly I could use
+    an available free tool such as AutoClave to sanitize the disk by rendering all values 0 which 
+    conforms to DoD specs and Gutmann patterns. 
+    
+6.  stdint.h is the header file which contains the documentation for the Standard Integer Type. Specifically 
+    it deals with the width, in bits, of integer types.
+    
+7.  Because they are set to specific widths there you can use these integers for elements that require 
+    precise widths
+    
+8.  BYTE: 1 
+    DWORD: 4
+    LONG: 4
+    WORD: 2
+    
+9.  0x4d42
+
+10. bfSize represents the size of the bitmap file in bytes while biSize represents the number of bytes
+    needed to store the  BITMAPINFOHEADER stucture.
+    
+11. The bitmap file is a Top-down device-independent bitmap which signifies that the origin is in the 
+    upper-left hand corner. 
+    
+12. biBitCount
+
+13. If there was not enough memory for a copy of the bit map to be created or some similar error occurs 
+    when creating the output file
+    
+14. Because it is only presenting 1 element to the fread function, being the structure. 
+
+15. Because BMP files process it differently if the width is not a multiple of 4. Therefore 
+    padding is added so the number of bytes used per each scanline is a multiple of 4.
+    
+16. It set the file position indicator of the file presented by the first argument (*stream). The new 
+    position, in bytes, is found by offsetting the position by the specified argument (whence).
+    
+17. SEEK_CUR is used to set the offset relative to the current position indicator
+
+18. Rob and/or Rob's cat, never trust the cat.
