@@ -1,3 +1,3 @@
 # CS50
 
-repository for the CS50 course, Harvard
+repository for the Harvard CS50 course
