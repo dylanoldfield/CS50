@@ -3,6 +3,8 @@
 //
 // David J. Malan
 // malan@harvard.edu
+// Dylan P. Oldfield
+// dylan.oldfield@yahoo.com
 //
 
 // feature test macro requirements
