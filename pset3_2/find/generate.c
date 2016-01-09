@@ -22,19 +22,20 @@
 // constant
 #define LIMIT 65536
 
+
 int main(int argc, string argv[])
 {
-    // checks whether correct number of arguments is used
+    // Checks to see if appropriate number of arguments is given
     if (argc != 2 && argc != 3)
     {
         printf("Usage: generate n [s]\n");
         return 1;
     }
 
-    // converts the string to an int specifying number of random numbers
+    // Converts the second argument to an integer 
     int n = atoi(argv[1]);
 
-    // if there are 3 arguments use argv2 as seed otherwise use time
+    // If 3 arguments are present it creates an integer seed to be passed to drand48()
     if (argc == 3)
     {
         srand48((long int) atoi(argv[2]));
@@ -44,7 +45,7 @@ int main(int argc, string argv[])
         srand48((long int) time(NULL));
     }
 
-    // print out n number of random numbers between [0.LIMIT)
+    // creates n number of pseudo-random integers using drand48 * 65536
     for (int i = 0; i < n; i++)
     {
         printf("%i\n", (int) (drand48() * LIMIT));

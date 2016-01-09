@@ -25,11 +25,12 @@ bool search(int value, int values[], int n)
     }
    //binary search 
    int low = 0;
+   // account for extra value in array created by distro code n-2
    int high = n - 1;
    
    while ( low <= high )
    {
-        int mid = low + high / 2;
+        int mid = (low + high) / 2;
         
         if (value == values[mid])
         {
@@ -56,8 +57,9 @@ void sort(int values[], int n)
 {
 
     //Bubble Sort 
-    
-    for (int i = 0; i < n; i++)
+    // for some reason they give you n+1 values with the last being 0 
+    // therefore i has to be set to 1 to account without messing with distro
+    for (int i = 1; i < n; i++)
     {
         //Doesn't check already sorted values a.k.a. end values
         for (int j = 0; j < n - i; j++)
