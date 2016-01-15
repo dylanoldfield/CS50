@@ -1,0 +1,9 @@
+questions.txt
+
+Computer Science 50
+Problem Set 3
+
+0. It allows dimensions of between 3 by 3 to 9 by 9
+1. The data structure the board uses is a matrix. Array of arrays
+2. The greet function is called to greet the user at the start of the game
+3. I need to implement the init, draw, move and won functions. 
