@@ -194,7 +194,7 @@ void draw(void)
             // prints underscore instead of 0 for empty 
             if(board[i][j] == 0)
             {
-                printf(" _");
+                printf(" _ ");
             }
             else
             {
@@ -224,8 +224,51 @@ void draw(void)
  */
 bool move(int tile)
 {
-    // TODO
-    return false;
+    int y = -1;
+    int x = -1; 
+    
+    for(int i = 0; i < d; i++)
+    {
+        for(int j = 0; j < d; j++)
+        {
+            if(board[i][j] == tile )
+            {
+                y = i;
+                x = j; 
+                break;
+            }
+        }
+    }
+    
+    if(board[y + 1][x] == 0 && y + 1 < d)
+    {
+        board[y + 1][x] = tile;
+        board[y][x] = 0;
+        return true;
+    }
+    else if(board[y - 1][x] == 0 && y -1 >= 0)
+    {
+        board[y - 1][x] = tile;
+        board[y][x] = 0;
+        return true;
+    }
+    else if(board[y][x + 1] == 0 && x + 1 < d)
+    {
+        board[y][x + 1] = tile;
+        board[y][x] = 0;
+        return true;
+    }
+    else if(board[y][x - 1] == 0 && x -1 >= 0)
+    {
+        board[y][x - 1] = tile;
+        board[y][x] = 0;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    
 }
 
 /**
