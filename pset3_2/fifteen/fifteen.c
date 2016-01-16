@@ -226,7 +226,7 @@ bool move(int tile)
 {
     int y = -1;
     int x = -1; 
-    
+    // records postion of searched tile to move 
     for(int i = 0; i < d; i++)
     {
         for(int j = 0; j < d; j++)
@@ -240,6 +240,7 @@ bool move(int tile)
         }
     }
     
+    //checks if it borders an empty valid spot 
     if(board[y + 1][x] == 0 && y + 1 < d)
     {
         board[y + 1][x] = tile;
@@ -277,6 +278,8 @@ bool move(int tile)
  */
 bool won(void)
 {
-    // TODO
+    int count = 0; 
+    bool win = false; 
+    
     return false;
 }
