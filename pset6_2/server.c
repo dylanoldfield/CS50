@@ -618,8 +618,44 @@ bool load(FILE* file, BYTE** content, size_t* length)
  */
 const char* lookup(const char* path)
 {
-    // TODO
-    return NULL;
+    char* exten = strstr(path, ".");
+    
+    if(strcasecmp(exten, ".css") == 0)
+    {
+        return "text/css";
+    }
+    else if (strcasecmp(exten, ".html") == 0)
+    {
+        return "text/html";   
+    }
+    else if (strcasecmp(exten, ".gif") == 0)
+    {
+        return "image/gif";
+    }
+    else if (strcasecmp(exten, ".ico") == 0)
+    {
+        return "image/x-icon";
+    }
+    else if( strcasecmp(exten, ".jpg") == 0)
+    {
+        return "image/jpeg";
+    }
+    else if( strcasecmp(exten, ".js") == 0 )
+    {
+        return "text/javascript";
+    }
+    else if( strcasecmp(exten, ".php") == 0)
+    {
+        return "text/x-php";
+    }
+    else if( strcasecmp(exten, ".png") == 0)
+    {
+        return "image/png";
+    }
+    else
+    {
+         return NULL;
+    }
 }
 
 /**
@@ -629,9 +665,73 @@ const char* lookup(const char* path)
  */
 bool parse(const char* line, char* abs_path, char* query)
 {
-    // TODO
-    error(501);
-    return false;
+    
+    // check if method is GET
+    if( strncmp(line, "GET",3) != 0)
+    {
+        error(405);
+        return false;
+    }
+    
+    //start checking request-target
+    // sets needle pointer to first space
+    char* needle = strchr(line, ' ');
+    
+    
+    //checks to see if request-target begins with / 
+    
+    if (needle[1] != '/')
+    {
+        error(501);
+        return false;
+    }
+   
+    
+    // sets the question mark spot to end of request-target incase no query
+    // sets request-end to same position in case of query
+    char* qspot = strrchr(line, ' ');
+    char* reqend = strrchr(line, ' ');
+    
+    // iterate through request-target checks for query and marks spot 
+    for(int i = 1; needle[i] != ' '; i++)
+    {
+        //checks if any quotations marks are found within
+        if(needle[i] == '\"' )
+        {
+            error(400);
+            return false; 
+        }
+        else if (needle[i] == '?')
+        {
+            // sets qspot to point at ? 
+            qspot = &needle[i];
+        }
+    }
+    
+    //moves needle to the first non-space character
+    needle = needle + 1; 
+    
+    //extrapolates abs_path and query 
+    strncpy(abs_path, needle, qspot - needle); 
+    //qspot pointer so as to not include ? in query 
+    qspot = qspot + 1;
+    strncpy(query, qspot, reqend - qspot);
+    if(query == NULL)
+    {
+        query[0] = '\0';
+    }
+    
+    //check http version 
+    reqend = reqend + 1; 
+    
+    if(strncmp(reqend,"HTTP/1.1",8) != 0)
+    {
+        error(505);
+        return false;
+    }
+    
+    
+    return true; 
 }
 
 /**
